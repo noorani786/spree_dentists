@@ -6,12 +6,10 @@ module Spree
     validates :dental_license_number, uniqueness: true, if: :is_dentist
     validates :dental_license_number, presence: true, if: :is_dentist
     
-    alias_method :orig_verify, :verify
-    def verify
-      if dental_license_number_changed?
-        self.verified = false
-        orig_verify
-      end
+    before_validate :unverify, if: :dental_license_number_changed?
+    
+    def unverify
+      self.verified = false
     end
   end
 end
