@@ -10,6 +10,7 @@ module Spree
     
     def unverify
       self.verified = false
+      true
     end
   end
 end
